@@ -14,8 +14,10 @@ GITHUB_DOWNLOAD_NAME=$(echo $GITHUB_RELEASE_JSON | jq -r ".[0].assets | .[] | .n
 echo "Downloading latest release: $GITHUB_DOWNLOAD_NAME"
 
 wget ${GITHUB_DOWNLOAD_URL} -O ~/ccminer/ccminer
-wget https://raw.githubusercontent.com/TheRetroMike/VerusCliMining/main/config.json -O ~/ccminer/config.json
+wget https://raw.githubusercontent.com/maistrovas/VerusCliMining/main/config.json -O ~/ccminer/config.json
 chmod +x ~/ccminer/ccminer
+
+export WORKER_NAME=$(cat /proc/cpuinfo | grep 'Hardware' | awk -F ': ' '{print $2}')-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
 
 cat << EOF > ~/ccminer/start.sh
 #!/bin/sh
