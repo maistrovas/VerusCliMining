@@ -17,8 +17,6 @@ wget ${GITHUB_DOWNLOAD_URL} -O ~/ccminer/ccminer
 wget https://raw.githubusercontent.com/maistrovas/VerusCliMining/main/config.json -O ~/ccminer/config.json
 chmod +x ~/ccminer/ccminer
 
-export WORKER_NAME=$(cat /proc/cpuinfo | grep 'Hardware' | awk -F ': ' '{print $2}')-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
-
 cat << EOF > ~/ccminer/start.sh
 #!/bin/sh
 ~/ccminer/ccminer -c ~/ccminer/config.json
@@ -35,5 +33,10 @@ echo "on the name"
 
 echo "start the miner with \"cd ~/ccminer; ./start.sh\"."
 
-cd ccminer
+# Read the JSON file and update the 'user' field
+WORKER_NAME=$(cat /proc/cpuinfo | grep 'Hardware' | awk -F ': ' '{print $2}')-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
+jq --arg worker_name "$WORKER_NAME" '.pools[] |= . + {"user": ("RUJt4zbjGo3qqJ6WUWYXgjeuhVLKqG4XtX." + $worker_name)}' config.json > temp.json && mv temp.json config.json
+export WORKER_NAME
+
+cd ~/ccminer
 ./start.sh
