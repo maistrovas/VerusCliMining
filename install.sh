@@ -34,9 +34,6 @@ echo "on the name"
 echo "start the miner with \"cd ~/ccminer; ./start.sh\"."
 
 # Read the JSON file and update the 'user' field
-# WORKER_NAME=$(cat /proc/cpuinfo | grep 'Hardware' | awk -F ': ' '{print $2}' | tr -d '\n')-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
-#WORKER_NAME=$(cat /proc/cpuinfo | grep 'Hardware' | awk -F ': ' '{print $2}' | tr -d '\n' | sed 's/\//-/g')-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
-#WORKER_NAME=$(cat /proc/cpuinfo | grep 'Hardware' | awk -F ': ' '{print $2}' | tr '/' '-' | tr -d '\n')-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
 WORKER_NAME=$(cat /proc/cpuinfo | grep 'Hardware' | head -n 1 | awk -F ': ' '{print $2}' | tr '/' '-' | tr -d '\n')-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
 
 
