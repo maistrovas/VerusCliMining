@@ -16,7 +16,7 @@
 		"timeout": 150
 	}
 	],
-	"user": "RUJt4zbjGo3qqJ6WUWYXgjeuhVLKqG4XtX.PHONE_FARM",
+	"user": "WALLET.WORKER_NAME",
 	"pass": "x",
 	"algo": "verus",
 	"threads": 8,
