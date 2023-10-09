@@ -34,11 +34,8 @@ echo "on the name"
 echo "start the miner with \"cd ~/ccminer; ./start.sh\"."
 
 # Read the JSON file and update the 'user' field
-#WORKER_NAME=$(cat /proc/cpuinfo | grep 'Hardware' | awk -F ': ' '{print $2}')-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
 WORKER_NAME=$(cat /proc/cpuinfo | grep 'Hardware' | awk -F ': ' '{print $2}' | tr -d '\n')-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 5)
-#jq --arg worker_name "$WORKER_NAME" '.pools[] |= . + {"user": ("RUJt4zbjGo3qqJ6WUWYXgjeuhVLKqG4XtX." + $worker_name)}' config.json > temp.json && mv temp.json config.json
 jq --arg worker_name "$WORKER_NAME" '(.user = ("RUJt4zbjGo3qqJ6WUWYXgjeuhVLKqG4XtX." + $worker_name))' config.json > temp.json && mv temp.json config.json
-#jq --arg worker_name "$WORKER_NAME" '(.user = ("WALLET." + $worker_name))' config.json > temp.json && mv temp.json config.json
 
 
 
